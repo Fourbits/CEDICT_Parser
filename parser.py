@@ -4,10 +4,14 @@
 
 from pinyin import *
 
+import os
+import re
+
 class Word():
 	
-	def __init__(self, hanzi, pinyin, definition):
-		self.hanzi = hanzi
+	def __init__(self, traditional, simplified, pinyin, definition):
+		self.traditional = traditional
+		self.simplified = simplified
 		self.pinyin = pinyin
 		self.definition = definition
 
@@ -23,6 +27,7 @@ class CEDictParser():
 		items = []
 
 		f = open(file_name, "r")
+
 		lines = f.readlines()
 		
 		for line in lines:
@@ -33,16 +38,32 @@ class CEDictParser():
 			if l.startswith(("#", "#!")):
 				continue
 			else:
-				#partition out definition text, replace slshes with semicolons, normalize quotations, get rid of any \n
+				#partition out definition text, replace slahes with semicolons, normalize quotations, get rid of any \n
 				defi = l.partition('/')[2].replace('/','; ').replace("\"", "'").strip()
-				#Get trad and simpl hanzis then split and take only the simplified
-				han = l.partition('[')[0].split(' ', 1)[1].strip(" ")
+				
+				# defi might contain pinyin too
+				try:
+					defi_pin = defi.partition('[')[2].partition(']')[0]
+					defi_pin = convert(defi_pin)
+				except:
+					defi_pin = ""
+
+				defi = defi.partition('[')[0] + " " + defi_pin
+
+				# defi might contain hanzi too, keep only simplified (\2 inst. \3)
+				defi = re.sub(r'(.*)\s(\W*)\|(\W*)\s(.*)', r'\1 \2 \4', defi)
+
+				#Get traditional hanzi
+				trad = l.partition('[')[0].split(' ', 1)[0].strip(" ")
+				# simpl hanzi
+				simpl = l.partition('[')[0].split(' ', 1)[1].strip(" ")
+
 				#Take the content in between the two brackets
 				pin = l.partition('[')[2].partition(']')[0]
 				
-				pin = convert(pin);			
+				pin = convert(pin);
 				
-				items.append(Word(han,pin,defi))
+				items.append(Word(trad,simpl,pin,defi))
 		
 		return items
 			
