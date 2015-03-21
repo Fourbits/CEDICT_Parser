@@ -7,7 +7,7 @@ http://www.mdbg.net/chindict/chindict.php?page=cc-cedict
 
 This module parses the CEDict file, and returns a list of objects with
 following attributes:
-```
+```python
 self.traditional
 self.simplified
 self.pinyin
@@ -15,7 +15,7 @@ self.definition
 ```
 
 Usage:
-```
+```python
 from CEDICT_Parser.parser import *
 
 
