@@ -21,7 +21,5 @@ from CEDICT_Parser.parser import *
 
 parser = CEDictParser()
 
-file_name = os.path.join(dir, "data/cedict_ts.u8")
-
-words = parser.parse_file(file_name)
+words = parser.parse_file("data/cedict_ts.u8")
 ```
