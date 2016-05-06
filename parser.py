@@ -2,7 +2,7 @@
 # the above line is necessary to tell python what kind of encoding we're working with
 # see: http://www.python.org/dev/peps/pep-0263/
 
-from pinyin import *
+from .pinyin import *
 
 import os
 import re
