@@ -5,7 +5,7 @@ CC-CEDICT is an English Chinese dictionary freely available for use in
 applications and other such things. It can be downloaded here:
 http://www.mdbg.net/chindict/chindict.php?page=cc-cedict
 
-This Python module parses a CEDict file, and returns a list of objects with
+This Python 3 module parses a CEDict file, and returns a list of objects with
 following attributes:
 ```python
 self.traditional
