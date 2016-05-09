@@ -26,7 +26,7 @@ class CEDictParser():
 		# Put each dictionary item into the array
 		items = []
 
-		f = open(file_name, "r")
+		f = open(file_name, mode="r", encoding="utf-8")
 
 		lines = f.readlines()
 		
